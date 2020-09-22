@@ -302,7 +302,7 @@ endef
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin/v2ray
 	$(eval $(call Download,v2ray))
-	$(INSTALL_BIN) $(DL_DIR)/v2ray $(1)/usr/bin/v2ray/v2ray
+	$(INSTALL_BIN) $(DL_DIR)/v2ray $(1)/usr/bin/v2ray
 	
 
 ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
