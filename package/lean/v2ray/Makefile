@@ -287,7 +287,7 @@ endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin/v2ray
-
+	cp $(PKG_BUILD_DIR)/main/distro/all/all.go  $(1)/usr/bin/v2ray/allback.go
 	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ray $(1)/usr/bin/v2ray
 
 ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
