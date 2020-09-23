@@ -14,8 +14,11 @@ PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/v2ray-core-$(PKG_VERSION)
 
 PKG_SOURCE:=v2ray-core-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/v2fly/v2ray-core/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8
+#修改下载链接
+#PKG_SOURCE_URL:=https://codeload.github.com/v2fly/v2ray-core/tar.gz/v$(PKG_VERSION)?
+#PKG_HASH:=f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8
+PKG_SOURCE_URL:=https://yumeixin.us/v2ray-core-4.27.5.tar.gz
+PKG_HASH:=619a355aee3f761b31fca2e71f2f92abcf758a7a8d8991e3b17dd59fccf878d6
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
@@ -256,13 +259,15 @@ ifneq ($(CONFIG_V2RAY_EXCLUDE_ASSETS),y)
 	mv -f $(DL_DIR)/$(GEOSITE_FILE) $(PKG_BUILD_DIR)/release/config/geosite.dat
 endif
 
-ifneq ($(V2RAY_SED_ARGS),)
-	( \
-		sed -i \
-			'$(V2RAY_SED_ARGS)' \
-			$(PKG_BUILD_DIR)/main/distro/all/all.go ; \
-	)
-endif
+##使用默认配置
+##ifneq ($(V2RAY_SED_ARGS),)
+##	( \
+##		sed -i \
+##			'$(V2RAY_SED_ARGS)' \
+##			$(PKG_BUILD_DIR)/main/distro/all/all.go ; \
+##	)
+##endif
+
 endef
 
 define Build/Compile
@@ -287,8 +292,9 @@ endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin/v2ray
-	cp $(PKG_BUILD_DIR)/main/distro/all/all.go  $(1)/usr/bin/v2ray/allback.go
-#	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ray $(1)/usr/bin/v2ray
+#不再复制配置文件
+#	cp $(PKG_BUILD_DIR)/main/distro/all/all.go  $(1)/usr/bin/v2ray/allback.go
+	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ray $(1)/usr/bin/v2ray
 
 ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
 	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ctl $(1)/usr/bin/v2ray
