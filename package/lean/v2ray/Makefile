@@ -17,7 +17,8 @@ PKG_SOURCE:=v2ray-core-$(PKG_VERSION).tar.gz
 #修改下载链接
 #PKG_SOURCE_URL:=https://codeload.github.com/v2fly/v2ray-core/tar.gz/v$(PKG_VERSION)?
 #PKG_HASH:=f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8
-PKG_SOURCE_URL:=https://yumeixin.us/v2ray-core-4.27.5.tar.gz
+#PKG_SOURCE_URL:=https://yumeixin.us/v2ray-core-4.27.5.tar.gz
+PKG_SOURCE_URL:=https://yumeixin.us
 PKG_HASH:=619a355aee3f761b31fca2e71f2f92abcf758a7a8d8991e3b17dd59fccf878d6
 
 PKG_LICENSE:=MIT
