@@ -9,7 +9,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=v2ray
-PKG_VERSION:=4.27.5
+#PKG_VERSION:=4.27.5
+#修改版本号 make sure 只能下载到这一个版本
+PKG_VERSION:=66.66.6
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/v2ray-core-$(PKG_VERSION)
 
@@ -19,6 +21,7 @@ PKG_SOURCE:=v2ray-core-$(PKG_VERSION).tar.gz
 #PKG_HASH:=f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8
 #PKG_SOURCE_URL:=https://yumeixin.us/v2ray-core-4.27.5.tar.gz
 PKG_SOURCE_URL:=https://yumeixin.us
+#是不是需要添加斜杠呢
 PKG_HASH:=619a355aee3f761b31fca2e71f2f92abcf758a7a8d8991e3b17dd59fccf878d6
 
 PKG_LICENSE:=MIT
