@@ -21,8 +21,9 @@ PKG_SOURCE:=v2ray-core-$(PKG_VERSION).tar.gz
 #PKG_HASH:=f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8
 #PKG_SOURCE_URL:=https://yumeixin.us/v2ray-core-4.27.5.tar.gz
 PKG_SOURCE_URL:=https://yumeixin.us
-#是不是需要添加斜杠呢
-PKG_HASH:=619a355aee3f761b31fca2e71f2f92abcf758a7a8d8991e3b17dd59fccf878d6
+#是不是需要添加斜杠呢 事实证明不需要
+#文件hash校对 记得每次修改
+PKG_HASH:=a38ab9c2870782479e0aa2904da4978e6971d087810067b3e98d0b46953981a3
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
