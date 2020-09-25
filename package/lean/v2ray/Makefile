@@ -265,13 +265,13 @@ ifneq ($(CONFIG_V2RAY_EXCLUDE_ASSETS),y)
 endif
 
 ##使用默认配置
-##ifneq ($(V2RAY_SED_ARGS),)
-##	( \
-##		sed -i \
-##			'$(V2RAY_SED_ARGS)' \
-##			$(PKG_BUILD_DIR)/main/distro/all/all.go ; \
-##	)
-##endif
+ifneq ($(V2RAY_SED_ARGS),)
+	( \
+		sed -i \
+			'$(V2RAY_SED_ARGS)' \
+			$(PKG_BUILD_DIR)/main/distro/all/all.go ; \
+	)
+endif
 
 endef
 
@@ -282,8 +282,8 @@ define Build/Compile
 
 ifeq ($(CONFIG_V2RAY_COMPRESS_UPX),y)
 ##使用超强压缩
-##	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/v2ray
-	$(STAGING_DIR_HOST)/bin/upx --ultra-brute $(GO_PKG_BUILD_BIN_DIR)/v2ray
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/v2ray
+##	$(STAGING_DIR_HOST)/bin/upx --ultra-brute $(GO_PKG_BUILD_BIN_DIR)/v2ray
 endif
 
 ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
@@ -293,8 +293,8 @@ ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
 
 ifeq ($(CONFIG_V2RAY_COMPRESS_UPX),y)
 ##使用超强压缩
-##	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/v2ctl
-	$(STAGING_DIR_HOST)/bin/upx --ultra-brute $(GO_PKG_BUILD_BIN_DIR)/v2ctl
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/v2ctl
+##	$(STAGING_DIR_HOST)/bin/upx --ultra-brute $(GO_PKG_BUILD_BIN_DIR)/v2ctl
 endif
 endif
 endef
