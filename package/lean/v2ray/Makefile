@@ -320,5 +320,5 @@ $(eval $(call Download,geosite.dat))
 endif
 
 #不编译了
-#$(eval $(call GoBinPackage,$(PKG_NAME)))
-#$(eval $(call BuildPackage,$(PKG_NAME)))
+$(eval $(call GoBinPackage,$(PKG_NAME)))
+$(eval $(call BuildPackage,$(PKG_NAME)))
