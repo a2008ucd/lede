@@ -319,5 +319,6 @@ $(eval $(call Download,geoip.dat))
 $(eval $(call Download,geosite.dat))
 endif
 
-$(eval $(call GoBinPackage,$(PKG_NAME)))
-$(eval $(call BuildPackage,$(PKG_NAME)))
+#不编译了
+#$(eval $(call GoBinPackage,$(PKG_NAME)))
+#$(eval $(call BuildPackage,$(PKG_NAME)))
