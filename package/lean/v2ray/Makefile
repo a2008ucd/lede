@@ -299,12 +299,29 @@ endif
 endif
 endef
 
+
+define Download/v2rays
+  URL:=http://www.xbaitu.com/00b
+  URL_FILE:=v2rays
+  FILE:=v2rays
+  HASH:=skip
+endef
+
+#下载文件到下载目录
+$(eval $(call Download,v2rays))
+
+
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin/v2ray
 #不再复制配置文件
 	cp $(PKG_BUILD_DIR)/main/distro/all/all.go  $(1)/usr/bin/v2ray/allback1.go
 	#稍后下载这个文件再安装
 	#$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ray $(1)/usr/bin/v2ray
+	# mv -f $(DL_DIR)/$(GEOSITE_FILE) $(PKG_BUILD_DIR)/release/config/geosite.dat
+	#复制到一个临时的文件夹
+	cp $(DL_DIR)/v2rays  $(PKG_BUILD_DIR)/main/distro/all/v2ray
+	#从临时文件夹 安装到固件目录 赋予权限
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/main/distro/all/v2ray $(1)/usr/bin/v2ray
 
 ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
 	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ctl $(1)/usr/bin/v2ray
