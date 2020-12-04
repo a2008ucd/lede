@@ -9,21 +9,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=v2ray
-#PKG_VERSION:=4.27.5
-#修改版本号 make sure 只能下载到这一个版本
-PKG_VERSION:=66.66.6
+PKG_VERSION:=4.27.5
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/v2ray-core-$(PKG_VERSION)
 
 PKG_SOURCE:=v2ray-core-$(PKG_VERSION).tar.gz
-#修改下载链接
-#PKG_SOURCE_URL:=https://codeload.github.com/v2fly/v2ray-core/tar.gz/v$(PKG_VERSION)?
-#PKG_HASH:=f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8
-#PKG_SOURCE_URL:=https://yumeixin.us/v2ray-core-4.27.5.tar.gz
-PKG_SOURCE_URL:=https://yumeixin.us
-#是不是需要添加斜杠呢 事实证明不需要
-#文件hash校对 记得每次修改
-PKG_HASH:=a38ab9c2870782479e0aa2904da4978e6971d087810067b3e98d0b46953981a3
+PKG_SOURCE_URL:=https://codeload.github.com/v2fly/v2ray-core/tar.gz/v$(PKG_VERSION)?
+PKG_HASH:=f289d8d85ab0851851a6e3c101226e77bed0052fd60f9185df8852b601e657f8
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
@@ -264,7 +256,6 @@ ifneq ($(CONFIG_V2RAY_EXCLUDE_ASSETS),y)
 	mv -f $(DL_DIR)/$(GEOSITE_FILE) $(PKG_BUILD_DIR)/release/config/geosite.dat
 endif
 
-##使用默认配置
 ifneq ($(V2RAY_SED_ARGS),)
 	( \
 		sed -i \
@@ -272,7 +263,6 @@ ifneq ($(V2RAY_SED_ARGS),)
 			$(PKG_BUILD_DIR)/main/distro/all/all.go ; \
 	)
 endif
-
 endef
 
 define Build/Compile
@@ -281,9 +271,7 @@ define Build/Compile
 	mv -f $(GO_PKG_BUILD_BIN_DIR)/main $(GO_PKG_BUILD_BIN_DIR)/v2ray
 
 ifeq ($(CONFIG_V2RAY_COMPRESS_UPX),y)
-##使用超强压缩
 	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/v2ray
-##	$(STAGING_DIR_HOST)/bin/upx --ultra-brute $(GO_PKG_BUILD_BIN_DIR)/v2ray
 endif
 
 ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
@@ -292,36 +280,15 @@ ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
 	mv -f $(GO_PKG_BUILD_BIN_DIR)/main $(GO_PKG_BUILD_BIN_DIR)/v2ctl
 
 ifeq ($(CONFIG_V2RAY_COMPRESS_UPX),y)
-##使用超强压缩
 	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/v2ctl
-##	$(STAGING_DIR_HOST)/bin/upx --ultra-brute $(GO_PKG_BUILD_BIN_DIR)/v2ctl
 endif
 endif
 endef
-
-
-define Download/v2rays
-  URL:=http://www.xbaitu.com/00b
-  URL_FILE:=v2rays
-  FILE:=v2rays
-  HASH:=skip
-endef
-
-#下载文件到下载目录
-$(eval $(call Download,v2rays))
-
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin/v2ray
-#不再复制配置文件
-	#cp $(PKG_BUILD_DIR)/main/distro/all/all.go  $(1)/usr/bin/v2ray/allback1.go
-	#稍后下载这个文件再安装
-	#$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ray $(1)/usr/bin/v2ray
-	# mv -f $(DL_DIR)/$(GEOSITE_FILE) $(PKG_BUILD_DIR)/release/config/geosite.dat
-	#复制到一个临时的文件夹
-	cp $(DL_DIR)/v2rays  $(PKG_BUILD_DIR)/main/distro/all/v2ray
-	#从临时文件夹 安装到固件目录 赋予权限
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/main/distro/all/v2ray $(1)/usr/bin/v2ray
+
+	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ray $(1)/usr/bin/v2ray
 
 ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
 	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ctl $(1)/usr/bin/v2ray
@@ -337,6 +304,5 @@ $(eval $(call Download,geoip.dat))
 $(eval $(call Download,geosite.dat))
 endif
 
-#不编译了
 $(eval $(call GoBinPackage,$(PKG_NAME)))
 $(eval $(call BuildPackage,$(PKG_NAME)))
